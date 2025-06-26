@@ -1,0 +1,160 @@
+:root {
+  /* Base background and text */
+  --bg-main: #f3f4f6;        /* gray-100 */
+  --bg-card: #ffffff;
+  --bg-hover: #f9fafb;
+  --text-primary: #111827;
+  --text-muted: #6b7280;     /* gray-500 */
+  --card-shadow: rgba(0, 0, 0, 0.05);
+
+  /* Priority Colors */
+  --priority-high: #dc2626;    /* red-600 */
+  --priority-medium: #facc15;  /* yellow-400 */
+  --priority-low: #16a34a;     /* green-600 */
+
+  /* Form / Button Colors */
+  --btn-bg: #4f46e5;           /* indigo-600 */
+  --btn-bg-hover: #4338ca;
+  --btn-text: #ffffff;
+
+  /* Navbar (light theme) */
+  --nav-bg-from: #7c3aed;      /* purple-600 */
+  --nav-bg-via: #ec4899;       /* pink-500 */
+  --nav-bg-to: #6d28d9;        /* purple-700 */
+  --nav-text: white;
+  --nav-active-bg: white;
+  --nav-active-text: #6d28d9;
+  --nav-hover-bg: white;
+  --nav-hover-text: #7c3aed;
+
+  /* Alerts / Cards */
+  --success-bg: #ecfdf5;
+  --success-border: #d1fae5;
+  --success-text: #065f46;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --error-text: #991b1b;
+
+  /* Footer (light theme) */
+  --footer-bg: #f9fafb;          /* gray-50 */
+  --footer-text: #4b5563;        /* gray-600 */
+  --footer-border: #e5e7eb;      /* gray-200 */
+  --footer-link-hover: #4f46e5;  /* indigo-600 */
+
+  /* Settings page background and text */
+  --settings-bg: var(--bg-main);
+  --settings-card-bg: var(--bg-card);
+  --settings-text-primary: var(--text-primary);
+  --settings-text-muted: var(--text-muted);
+  --settings-border: #e5e7eb; /* light border */
+
+  /* Green Button Gradient */
+  --btn-green-text: #000000;
+  --btn-green-from: #16a34a;        /* green-600 */
+  --btn-green-to: #22c55e;          /* green-500 */
+  --btn-green-from-hover: #15803d;  /* green-700 */
+  --btn-green-to-hover: #16a34a;    /* green-600 */
+   --color-priority-high-from: #ef4444;   /* red-500 */
+  --color-priority-high-to: #dc2626;     /* red-600 */
+
+  --color-priority-medium-from: #facc15; /* yellow-400 */
+  --color-priority-medium-to: #eab308;   /* yellow-500 */
+
+  --color-priority-low-from: #22c55e;    /* green-500 */
+  --color-priority-low-to: #16a34a;      /* green-600 */
+
+  --color-status-active-from: #3b82f6;   /* blue-500 */
+  --color-status-active-to: #2563eb;     /* blue-600 */
+
+  --color-status-completed-from: #22c55e;
+  --color-status-completed-to: #16a34a;
+  --bg-card: rgba(255, 255, 255, 0.7); /* for light theme */
+
+  --color-status-paused-from: #eab308;
+  --color-status-paused-to: #ca8a04;
+
+  --color-status-cancelled-from: #ef4444;
+  --color-status-cancelled-to: #dc2626;
+  --bg-gradient-from: #f8fafc; /* slate-50 */
+  --bg-gradient-via: #eff6ff;  /* blue-50 */
+  --bg-gradient-to: #eef2ff;   /* indigo-50 */
+
+   --goal-card-border: #e5e7eb;          /* for light mode cards */
+  --goal-card-border-dark: #374151;     /* for dark mode cards */
+  --goal-card-hover: #bfdbfe; 
+    --input-focus-ring: var(--color-status-active-from);
+}
+
+[data-theme='dark'] {
+  /* Base background and text */
+    --goal-card-border: var(--goal-card-border-dark);
+  --bg-main: #1e1e2f;
+  --bg-card: #2c2c3a;
+  --bg-hover: #374151;
+  --text-primary: #f3f4f6;
+  --text-muted: #9ca3af;
+  --card-shadow: rgba(255, 255, 255, 0.05);
+ --bg-gradient-from: #111827;  /* gray-900 */
+  --bg-gradient-via: #1e3a8a;   /* blue-900 */
+  --bg-gradient-to: #312e81;    /* indigo-900 */
+  /* Priority Colors (lighter for dark bg) */
+  --priority-high: #f87171;    /* red-400 */
+  --priority-medium: #fde68a;  /* yellow-300 */
+  --priority-low: #6ee7b7;     /* green-300 */
+
+  /* Form / Button Colors */
+  --btn-bg: #6366f1; /* indigo-500 */
+  --btn-bg-hover: #4f46e5;
+  --btn-text: #ffffff;
+
+  /* Navbar (dark theme) */
+  --nav-bg-from: #2a1a4f;
+  --nav-bg-via: #43175a;
+  --nav-bg-to: #5b1d72;
+  --nav-text: var(--text-primary);
+  --nav-active-bg: #d8b4fe;        /* purple-300 */
+  --nav-active-text: #4c1d95;      /* purple-900 */
+  --nav-hover-bg: #d8b4fe;
+  --nav-hover-text: #4c1d95;
+
+  /* Alerts / Cards */
+  --success-bg: #064e3b;
+  --success-border: #047857;
+  --success-text: #d1fae5;
+  --error-bg: #7f1d1d;
+  --error-border: #ef4444;
+  --error-text: #fee2e2;
+
+  /* Footer (dark theme) */
+  --footer-bg: #1f2937;            /* gray-800 */
+  --footer-text: #d1d5db;          /* gray-300 */
+  --footer-border: #374151;        /* gray-700 */
+  --footer-link-hover: #c4b5fd;    /* indigo-300 */
+
+  /* Settings page background and text */
+  --settings-bg: var(--bg-main);
+  --settings-card-bg: var(--bg-card);
+  --settings-text-primary: var(--text-primary);
+  --settings-text-muted: var(--text-muted);
+  --settings-border: #374151; /* darker border */
+
+  /* Green Button Gradient */
+  --btn-green-text: #d1fae5;         /* light green text */
+  --btn-green-from: #22c55e;         /* green-500 */
+  --btn-green-to: #16a34a;           /* green-600 */
+  --btn-green-from-hover: #15803d;   /* green-700 */
+  --btn-green-to-hover: #15803d;     /* darker green */
+   --bg-card-dark: rgba(17, 17, 17, 0.6);
+}
+
+/* Global body styles */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--input-focus-ring);
+}

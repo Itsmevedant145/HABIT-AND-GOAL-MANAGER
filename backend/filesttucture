@@ -1,0 +1,49 @@
+backend/
+├── controllers/
+│   ├── authController.js
+│   ├── habitController.js
+│   ├── userController.js
+│   └── analyticsController.js
+│
+├── models/
+│   ├── User.js
+│   ├── Habit.js
+│   ├── Streak.js
+│   └── Analytics.js
+│
+├── routes/
+│   ├── authRoutes.js
+│   ├── habitRoutes.js
+│   ├── userRoutes.js
+│   └── analyticsRoutes.js
+│
+├── middleware/
+│   ├── authMiddleware.js
+│   ├── errorHandler.js
+│   └── validateRequest.js
+│
+├── services/
+│   ├── authService.js
+│   ├── habitService.js
+│   ├── analyticsService.js
+│   └── emailService.js
+│
+├── utils/
+│   ├── jwt.js
+│   ├── hash.js
+│   ├── streakUtils.js
+│   └── dateUtils.js
+│
+├── config/
+│   ├── db.js
+│   ├── appConfig.js
+│   └── logger.js
+│
+├── views/
+│   └── (optional if using server-side rendering)
+│
+├── app.js
+├── server.js
+└── .env
+Absolutely, I’ve got your routes and controllers in mind. Let’s go step-by-step for testing your APIs in Postman, starting from **authentication** and moving to the others.
+

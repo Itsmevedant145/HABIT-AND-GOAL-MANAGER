@@ -1,0 +1,23 @@
+@import "tailwindcss";
+/* react-calendar overrides with Tailwind */
+
+.react-calendar__tile--active {
+  @apply bg-blue-600 text-white rounded-lg;
+}
+
+.react-calendar__tile:hover {
+  @apply bg-blue-100 rounded-lg cursor-pointer;
+}
+
+.react-calendar__tile--now {
+  @apply ring-2 ring-blue-500 rounded-lg;
+}
+/* In your global CSS file */
+
+.fade-out {
+  @apply opacity-0 transition-opacity duration-300 ease-in-out;
+}
+
+.fade-in {
+  @apply opacity-100 transition-opacity duration-300 ease-in-out;
+}

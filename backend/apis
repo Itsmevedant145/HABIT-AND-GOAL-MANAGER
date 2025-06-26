@@ -1,0 +1,251 @@
+Absolutely — if you're finding markdown formatting like `###`, `*`, or `---` distracting or hard to read, I can convert everything into **plain text only**, with **no markdown**, no special characters, no symbols — just clear and readable structure.
+
+Here’s the entire API list **in plain text**, no formatting symbols:
+
+---
+
+AUTHENTICATION
+
+1. Register User
+   Method: POST
+   URL: /api/auth/register
+   Headers:
+
+* Content-Type: application/json
+  Body:
+  {
+  "username": "testuser",
+  "email": "[testuser@example.com](mailto:testuser@example.com)",
+  "password": "password123"
+  }
+  Response: 201 Created
+
+2. Login User
+   Method: POST
+   URL: /api/auth/login
+   Headers:
+
+* Content-Type: application/json
+  Body:
+  {
+  "email": "[testuser@example.com](mailto:testuser@example.com)",
+  "password": "password123"
+  }
+  Response: 200 OK with JWT token
+
+---
+
+USER
+
+3. Get User Profile
+   Method: GET
+   URL: /api/users/me
+   Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+4. Update User Profile
+   Method: PUT
+   URL: /api/users/me
+   Headers:
+
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "username": "newusername",
+  "email": "[newemail@example.com](mailto:newemail@example.com)"
+  }
+  Response: 200 OK
+
+---
+
+HABITS
+
+5. Create Habit
+   Method: POST
+   URL: /api/habits
+   Headers:
+
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "title": "Morning Jog",
+  "category": "Health",
+  "frequency": "Daily"
+  }
+  Response: 201 Created
+
+6. Get All Habits
+   Method: GET
+   URL: /api/habits
+   Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+7. Update Habit
+   Method: PUT
+   URL: /api/habits/\<habit\_id>
+   Headers:
+
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "title": "Evening Jog",
+  "category": "Fitness"
+  }
+  Response: 200 OK
+
+8. Delete Habit
+   Method: DELETE
+   URL: /api/habits/\<habit\_id>
+   Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+9. Toggle Habit Completion
+   Method: POST
+   URL: /api/habits/\<habit\_id>/toggle-completion
+   Headers:
+
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "date": "2025-06-04"
+  }
+  Response: 200 OK
+
+---
+
+ANALYTICS
+
+10. Get Weekly Summary
+    Method: GET
+    URL: /api/analytics/weekly-summary
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+11. Get Habit Streaks
+    Method: GET
+    URL: /api/analytics/habit-streaks/\<habit\_id>
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+12. Get Overall Stats
+    Method: GET
+    URL: /api/analytics/stats
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+---
+
+GOALS
+
+13. Create Goal
+    Method: POST
+    URL: /api/goals
+    Headers:
+
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "title": "Get Fit",
+  "description": "Lose 20 pounds in 3 months",
+  "targetDate": "2025-09-01",
+  "status": "active",
+  "category": "fitness",
+  "successMetric": "Lose 20 pounds"
+  }
+  Response: 201 Created
+
+14. Get All Goals
+    Method: GET
+    URL: /api/goals
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+15. Get Goal by ID
+    Method: GET
+    URL: /api/goals/\<goal\_id>
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+
+16. Update Goal
+    Method: PUT
+    URL: /api/goals/\<goal\_id>
+    Headers:
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "title": "Get Super Fit",
+  "description": "Lose 25 pounds in 4 months",
+  "status": "active"
+  }
+  Response: 200 OK
+17. Delete Goal
+    Method: DELETE
+    URL: /api/goals/\<goal\_id>
+    Headers:
+
+* Authorization: Bearer <token>
+  Response: 200 OK
+18. Link Habit to Goal
+    Method: POST
+    URL: /api/goals/\<goal\_id>/habits
+    Headers:
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "habitId": "\<habit\_id>",
+  "contributionWeight": 0.4
+  }
+  Response: 201 Created
+19. Get Goal Progress
+    Method: GET
+    URL: /api/goals/\<goal\_id>/progress
+    Headers:
+* Authorization: Bearer <token>
+  Response:
+  {
+  "progress": 55.5
+  }
+20. Add Milestone to Goal
+    Method: POST
+    URL: /api/goals/\<goal\_id>/milestones
+    Headers:
+* Authorization: Bearer <token>
+* Content-Type: application/json
+  Body:
+  {
+  "title": "Lose first 5 pounds",
+  "targetDate": "2025-07-01",
+  "isCompleted": false,
+  "requiredProgress": "Lose 5 pounds"
+  }
+  Response: 201 Created
+21. Mark Milestone as Complete
+    Method: PUT
+    URL: /api/goals/milestones/\<milestone\_id>/complete
+    Headers:
+* Authorization: Bearer <token>
+  Response: 200 OK
+
