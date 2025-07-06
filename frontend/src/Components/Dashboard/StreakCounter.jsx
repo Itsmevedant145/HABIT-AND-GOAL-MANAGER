@@ -156,7 +156,7 @@ useEffect(() => {
   }
   const totalCurrentStreak = habits.reduce((sum, h) => sum + (h.currentStreak || 0), 0);
   const maxLongestStreak = habits.length ? Math.max(...habits.map((h) => h.longestStreak || 0)) : 0;
-  const activeHabits = habits.filter((h) => (h.currentStreak || 0) > 0).length;
+ 
   const perfectHabits = habits.filter((h) => (h.currentStreak || 0) >= 7).length;
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-6">
@@ -171,54 +171,44 @@ useEffect(() => {
               Streak Dashboard
             </h1>
           </div>
-          <p className="text-gray-600 text-lg">Track your consistency and celebrate your progress</p>
+         
         </div> {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-800">{totalCurrentStreak}</div>
-                <div className="text-sm text-gray-600 font-medium">Total Active Streaks</div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl">
-                <Trophy className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-800">{maxLongestStreak}</div>
-                <div className="text-sm text-gray-600 font-medium">Personal Best</div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-purple-500 to-violet-600 rounded-xl">
-                <Target className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-800">{activeHabits}</div>
-                <div className="text-sm text-gray-600 font-medium">Active Habits</div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl">
-                <Calendar className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-gray-800">{perfectHabits}</div>
-                <div className="text-sm text-gray-600 font-medium">Week+ Streaks</div>
-              </div>
-            </div>
-          </div>
-        </div>
+       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+    <div className="flex items-center gap-4">
+      <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
+        <TrendingUp className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <div className="text-3xl font-bold text-gray-800">{totalCurrentStreak}</div>
+        <div className="text-sm text-gray-600 font-medium">Total Active Streaks</div>
+      </div>
+    </div>
+  </div>
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+    <div className="flex items-center gap-4">
+      <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl">
+        <Trophy className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <div className="text-3xl font-bold text-gray-800">{maxLongestStreak}</div>
+        <div className="text-sm text-gray-600 font-medium">Personal Best</div>
+      </div>
+    </div>
+  </div>
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+    <div className="flex items-center gap-4">
+      <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl">
+        <Calendar className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <div className="text-3xl font-bold text-gray-800">{perfectHabits}</div>
+        <div className="text-sm text-gray-600 font-medium">Week+ Streaks</div>
+      </div>
+    </div>
+  </div>
+</div>
+
         {/* Habits List */}
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">

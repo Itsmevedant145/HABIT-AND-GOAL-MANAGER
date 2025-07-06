@@ -20,7 +20,6 @@ import { formatDistanceToNowStrict, isPast, format } from 'date-fns';
 import ProgressRing from '../../Components/Goals/ProgressRing';
 import GoalDetailsSection from '../../Components/Goals/GoalDetailsSection';
 import GoalMilestoneManager from '../../Components/Goals/GoalMilestoneManager';
-import HeaderSection from '../../Components/Goals/HeaderSection';
 import ControlsSection from '../../Components/Goals/ControlsSection';
 import GoalModalManager from '../../Components/Goals/GoalModalManager';
 import GoalsDisplay from '../../Components/Goals/GoalsDisplay';
@@ -158,26 +157,36 @@ const [showLinkHabitModal, setShowLinkHabitModal] = useState(false); // ✅ for 
       console.error('Failed to link habit:', error);
     }
   };
+  console.log('Goals array length:', goals.length);
+console.log('Filter status:', filterStatus);
+console.log('Search term:', searchTerm);
+
   const totalGoals = goals.length;
   const activeGoals = goals.filter(g => g.status === 'active').length;
   const completedGoals = goals.filter(g => g.status === 'completed').length;
   const pausedGoals = goals.filter(g => g.status === 'paused').length;
   const overDueGoals = goals.filter(g => g.status === 'active' && isPast(new Date(g.targetDate))).length;
   const successRate = Math.floor((completedGoals / totalGoals) * 100 || 0);
-  const filteredAndSortedGoals = useMemo(() => {
-    return goals
-      .filter(goal => {
-        const matchesStatus = filterStatus === 'All' || goal.status === filterStatus.toLowerCase();
-        const matchesSearch = goal.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             goal.description.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesStatus && matchesSearch;
-      })
-      .sort((a, b) => {
-        const dateA = new Date(a.targetDate);
-        const dateB = new Date(b.targetDate);
-        return sortByDueDateAsc ? dateA - dateB : dateB - dateA;
-      });
-  }, [goals, filterStatus, sortByDueDateAsc, searchTerm]);
+ const filteredAndSortedGoals = useMemo(() => {
+  return goals
+    .filter(goal => {
+      const actualStatus = goal.progress >= 100 ? 'completed' : 'active';
+
+      const matchesStatus = filterStatus.toLowerCase() === 'all' ||
+                            actualStatus === filterStatus.toLowerCase();
+
+      const matchesSearch = goal.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            goal.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesStatus && matchesSearch;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.targetDate);
+      const dateB = new Date(b.targetDate);
+      return sortByDueDateAsc ? dateA - dateB : dateB - dateA;
+    });
+}, [goals, filterStatus, sortByDueDateAsc, searchTerm]);
+
   const selectedGoal = useMemo(() =>
     goals.find(g => g._id === selectedGoalId),
     [goals, selectedGoalId]
@@ -262,7 +271,7 @@ const [showLinkHabitModal, setShowLinkHabitModal] = useState(false); // ✅ for 
             goalId={selectedGoalId}
             onHabitsUpdate={() => {
               fetchGoals();
-              setShowLinkHabitModal(false);
+            // setShowLinkHabitModal(false);
             }}
             onClose={() => setShowLinkHabitModal(false)}
           />

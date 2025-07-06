@@ -1,10 +1,22 @@
 import React from 'react';
 import Modal from '../UI/Modal';
-import GoalDetailsSection from './GoalDetailsSection';
-import GaolForm from './GaolForm';
+
+import GaolForm from './GaolForm'; // kept as "GaolForm" per your note
 import GoalMilestoneManager from './GoalMilestoneManager';
-import { BarChart3, Award, Lightbulb } from 'lucide-react';
+
 import GoalHabitLinker from './GoalHabitLinker';
+import {
+  BarChart3,
+  Award,
+  Lightbulb,
+  Trophy,
+  TrendingUp,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+} from 'lucide-react';
+import GoalInsightsPanel from './GoalInsightsPanel ';
+
 
 function GoalModalManager({
   type,
@@ -28,19 +40,6 @@ function GoalModalManager({
 
   const renderContent = () => {
     switch (type) {
-      case 'goal':
-        return selectedGoal ? (
-          <GoalDetailsSection
-            goal={selectedGoal}
-            onDelete={handleGoalDeleted}
-            onUpdate={handleGoalUpdated}
-            onLinkHabit={handleLinkHabit}
-            onStatusToggle={handleStatusToggle}
-          />
-        ) : (
-          <GaolForm onSubmit={handleGoalCreated} onClose={onClose} />
-        );
-
       case 'milestone':
         return milestoneGoal ? (
           <GoalMilestoneManager
@@ -66,62 +65,51 @@ function GoalModalManager({
           <p className="text-center text-gray-500">No goal selected for linking habits.</p>
         );
 
-      case 'insight':
+      case 'insight': {
         if (loading) {
           return (
             <div className="flex items-center justify-center h-48">
               <div className="relative">
-                <div className="w-12 h-12 border-4 border-blue-200 dark:border-blue-800 rounded-full animate-spin" />
-                <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin absolute top-0 left-0" />
+                <div className="w-20 h-20 border-[3px] border-slate-200/60 dark:border-slate-700/60 rounded-full animate-spin backdrop-blur-sm" />
+                <div className="w-20 h-20 border-[3px] border-transparent border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin absolute top-0 left-0" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Lightbulb className="w-7 h-7 text-blue-500 dark:text-blue-400 animate-pulse" />
+                </div>
               </div>
             </div>
           );
         }
 
-        return goalInsights ? (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                Insights for {goalInsights.title}
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">{goalInsights.description}</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-blue-500 rounded-lg text-white">
-                    <BarChart3 className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Progress</h3>
-                </div>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {goalInsights.progress ?? 0}% completed
-                </p>
+        if (!goalInsights) {
+          return (
+            <div className="text-center py-16">
+              <div className="p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-2xl inline-block mb-6 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
+                <Lightbulb className="w-10 h-10 text-slate-400 dark:text-slate-500" />
               </div>
-              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-green-500 rounded-lg text-white">
-                    <Award className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Success Rate</h3>
-                </div>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {goalInsights.successRate ?? 0}%
-                </p>
-              </div>
+              <p className="text-slate-600 dark:text-slate-400 font-medium">No insights available for this goal.</p>
             </div>
-          </div>
+          );
+        }
+
+       return <GoalInsightsPanel goalInsights={goalInsights} />;
+
+      }
+
+      case 'goal':
+        return selectedGoal ? (
+          <GaolForm
+            goal={selectedGoal}
+            onGoalCreated={handleGoalCreated}
+            onGoalUpdated={handleGoalUpdated}
+            onGoalDeleted={handleGoalDeleted}
+            onClose={onClose}
+          />
         ) : (
-          <div className="text-center py-12">
-            <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-full inline-block mb-4">
-              <Lightbulb className="w-8 h-8 text-gray-400" />
-            </div>
-            <p className="text-gray-600 dark:text-gray-400">No insights available for this goal.</p>
-          </div>
+          <GaolForm onGoalCreated={handleGoalCreated} onClose={onClose} />
         );
 
       default:
-        return <p className="text-center text-gray-500">No modal type matched.</p>;
+        return null;
     }
   };
 
@@ -156,7 +144,12 @@ function GoalModalManager({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={getTitle()} className={`${getMaxWidthClass()} w-full`}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={getTitle()}
+      className={`${getMaxWidthClass()} w-full`}
+    >
       {renderContent()}
     </Modal>
   );

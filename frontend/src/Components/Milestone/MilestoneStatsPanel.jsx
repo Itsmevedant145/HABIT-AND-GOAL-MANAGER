@@ -11,67 +11,83 @@ const MilestoneStatsPanel = ({
   onAddClick,
 }) => {
   return (
-    <div className="relative bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-      {/* Animated background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-4000"></div>
+    <div className="relative rounded-3xl bg-gradient-to-br from-blue-700 via-purple-700 to-pink-700 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 shadow-2xl border border-white/20 backdrop-blur-md overflow-hidden">
+      {/* Glowing blurred circles background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-12 -left-10 w-40 h-40 rounded-full bg-yellow-400 opacity-30 blur-3xl animate-pulse" />
+        <div className="absolute -bottom-12 right-8 w-36 h-36 rounded-full bg-purple-500 opacity-25 blur-2xl animate-pulse animation-delay-2000" />
+        <div className="absolute top-20 right-1/2 w-48 h-48 rounded-full bg-pink-500 opacity-20 blur-3xl animate-pulse animation-delay-4000" />
       </div>
 
-      <div className="relative p-6 flex flex-col lg:flex-row lg:justify-between gap-6">
-        {/* Header Section */}
-        <div className="flex gap-4">
-          <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl shadow-lg">
-            <Target className="w-6 h-6 text-white" />
+      <div className="relative p-8 flex flex-col lg:flex-row lg:justify-between gap-8 text-white">
+        {/* Left: Header + Info */}
+        <div className="flex gap-6 flex-1 max-w-xl">
+          <div className="flex items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 shadow-lg w-14 h-14">
+            <Target className="w-7 h-7" />
           </div>
-          <div className="space-y-2">
-            <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <div className="flex flex-col justify-center space-y-1">
+            <h2 className="text-3xl font-extrabold bg-gradient-to-r from-white via-yellow-300 to-white bg-clip-text text-transparent drop-shadow-lg">
               Milestone Tracker
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400">Track your progress on this goal</p>
-            
+            <p className="text-sm opacity-80">
+              Track your progress on this goal
+            </p>
+
+            {/* Alerts */}
             {selectedMilestonesCount > 0 && totalCreated === 0 && (
-              <div className="px-3 py-2 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 rounded-lg border border-orange-200 dark:border-orange-700">
-                <p className="text-sm font-medium text-orange-700 dark:text-orange-300">
-                  You have selected {selectedMilestonesCount} milestones but not set any milestone yet.
-                </p>
+              <div className="mt-3 px-4 py-2 rounded-xl bg-gradient-to-r from-orange-400 to-red-400 bg-opacity-30 border border-orange-600 text-orange-100 font-semibold text-sm shadow-md">
+                You have selected {selectedMilestonesCount} milestones but have not set any milestone yet.
               </div>
             )}
-            
+
             {milestonesLeftToSet > 0 && totalCreated > 0 && (
-              <div className="px-3 py-2 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-lg border border-yellow-200 dark:border-yellow-700">
-                <p className="text-sm font-medium text-yellow-700 dark:text-yellow-300">
-                  You have completed {completedCount} milestones, and still have {milestonesLeftToSet} milestone{milestonesLeftToSet > 1 ? 's' : ''} left to set before the goal is complete.
-                </p>
+              <div className="mt-3 px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-opacity-30 border border-yellow-600 text-yellow-100 font-semibold text-sm shadow-md">
+                You have completed {completedCount} milestones, and still have {milestonesLeftToSet} milestone{milestonesLeftToSet > 1 ? 's' : ''} left to set before the goal is complete.
               </div>
             )}
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="flex gap-4">
+        {/* Middle: Stats Cards */}
+        <div className="flex gap-6 flex-1 max-w-2xl justify-center">
           {[
-            { icon: CheckCircle2, label: 'Completed', value: completedCount, gradient: 'from-green-500 to-emerald-500' },
-            { icon: TrendingUp, label: 'Progress', value: `${pct}%`, gradient: 'from-blue-500 to-indigo-500' },
-            { icon: AlertCircle, label: 'Overdue', value: overdueCount, gradient: 'from-red-500 to-pink-500' },
+            { icon: CheckCircle2, label: 'Completed', value: completedCount, gradient: 'from-green-400 to-emerald-500' },
+            { icon: TrendingUp, label: 'Progress', value: `${pct}%`, gradient: 'from-blue-400 to-indigo-500' },
+            { icon: AlertCircle, label: 'Overdue', value: overdueCount, gradient: 'from-red-500 to-pink-600' },
           ].map(({ icon: Icon, label, value, gradient }) => (
-            <div key={label} className="group relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm rounded-xl" style={{background: `linear-gradient(to right, var(--tw-gradient-stops))`}}></div>
-              <div className={`p-2 bg-gradient-to-r ${gradient} rounded-lg shadow-sm w-fit`}>
-                <Icon className="w-4 h-4 text-white" />
+            <div
+              key={label}
+              className="group relative bg-white/10 rounded-2xl p-5 flex flex-col items-center gap-2 cursor-default select-none shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+            >
+              <div
+                className={`p-3 rounded-xl bg-gradient-to-tr ${gradient} shadow-lg w-fit flex items-center justify-center`}
+              >
+                <Icon className="w-6 h-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-slate-600 dark:text-slate-400">{label}</div>
-              <div className="text-xl font-bold text-slate-800 dark:text-slate-200">{value}</div>
+              <div className="text-sm font-semibold tracking-wide">{label}</div>
+              <div className="text-3xl font-extrabold">{value}</div>
+              {/* subtle glow on hover */}
+              <div
+                className="absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-lg pointer-events-none"
+                style={{ background: `linear-gradient(to right, var(--tw-gradient-stops))` }}
+              />
             </div>
           ))}
         </div>
 
-        {/* Progress Circle and Add Button */}
-        <div className="flex flex-col items-center space-y-4">
-          <div className="relative w-20 h-20">
-            <svg className="w-20 h-20 -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="8" fill="none" className="text-slate-200 dark:text-slate-700" />
+        {/* Right: Progress Circle + Add Button */}
+        <div className="flex flex-col items-center gap-6 flex-shrink-0">
+          <div className="relative w-24 h-24">
+            <svg className="w-24 h-24 -rotate-90" viewBox="0 0 100 100">
+              <circle
+                cx="50"
+                cy="50"
+                r="40"
+                stroke="currentColor"
+                strokeWidth="8"
+                fill="none"
+                className="text-white/30"
+              />
               <circle
                 cx="50"
                 cy="50"
@@ -79,8 +95,8 @@ const MilestoneStatsPanel = ({
                 stroke="url(#progress-gradient)"
                 strokeWidth="8"
                 fill="none"
-                strokeDasharray={`${2 * Math.PI * 40}`}
-                strokeDashoffset={`${2 * Math.PI * 40 * (1 - pct / 100)}`}
+                strokeDasharray={2 * Math.PI * 40}
+                strokeDashoffset={2 * Math.PI * 40 * (1 - pct / 100)}
                 strokeLinecap="round"
                 className="transition-all duration-1000 ease-out"
               />
@@ -92,26 +108,24 @@ const MilestoneStatsPanel = ({
               </defs>
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{pct}%</span>
+              <span className="text-xl font-extrabold bg-gradient-to-r from-indigo-300 to-purple-400 bg-clip-text text-transparent">
+                {pct}%
+              </span>
             </div>
           </div>
 
           <button
             onClick={onAddClick}
-            className="group relative px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 font-medium"
+            className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-700 shadow-lg text-white font-semibold tracking-wide hover:from-indigo-700 hover:to-purple-800 transition-transform duration-300 active:scale-95"
           >
-            <div className="flex items-center gap-2">
-              <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
-              <span>Add Milestone</span>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
+            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+            Add Milestone
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-700 to-purple-800 opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10 blur" />
           </button>
         </div>
       </div>
     </div>
   );
-
-
 };
 
 export default MilestoneStatsPanel;

@@ -237,18 +237,36 @@ function HabitCard({
             {
               label: 'This Week',
               value: `${thisWeekCompleted}/7`,
-              icon: <TrendingUp className="w-4 h-4 text-indigo-700" />,
+              icon:<div className="relative group">
+      <BarChart3 className="w-5 h-5 text-pink-700" />
+      <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 rounded bg-blue-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        This is your completion count for this week
+      </span>
+    </div>,
             },
             {
               label: 'Total',
               value: completedDates.length,
-              icon: <Target className="w-4 h-4 text-green-700" />,
+              icon: <div className="relative group">
+      <BarChart3 className="w-5 h-5 text-pink-700" />
+      <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 rounded bg-yellow-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        This is your total number of completions of habit
+      </span>
+    </div>,
             },
-            {
-              label: 'Rate',
-              value: `${ratePercent}%`,
-              icon: <BarChart3 className="w-4 h-4 text-pink-700" />,
-            },
+           {
+  label: 'Rate',
+  value: `${ratePercent}%`,
+  icon: (
+    <div className="relative group">
+      <BarChart3 className="w-5 h-5 text-pink-700" />
+      <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 rounded bg-pink-700 text-white text-xs px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        This is your current success rate.
+      </span>
+    </div>
+  ),
+}
+
           ].map(({ label, value, icon }) => (
             <div
               key={label}
@@ -338,5 +356,4 @@ function HabitCard({
     </>
   );
 }
-
 export default HabitCard;

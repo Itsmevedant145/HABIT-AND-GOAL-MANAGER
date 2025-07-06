@@ -11,8 +11,15 @@ export default function GoalsHeader({ onCreate }) {
       </div>
       <button
         onClick={onCreate}
-        className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-5 py-2 rounded-2xl shadow-md font-semibold transition"
-        aria-label="Create New Goal"
+       className="flex items-center gap-2 px-6 py-3 rounded-xl
+                     bg-gradient-to-r from-emerald-500 to-blue-600
+                     hover:from-emerald-600 hover:to-blue-700
+                     text-white font-semibold
+                     shadow-lg hover:shadow-xl
+                     transition-all duration-300 ease-in-out
+                     hover:scale-105 active:scale-95
+                     hover:-translate-y-0.5
+                     border border-white/20"
       >
         <FaPlus />
         Create New Goal

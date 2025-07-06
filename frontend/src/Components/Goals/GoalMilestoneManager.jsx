@@ -18,6 +18,8 @@ import MilestoneStatsPanel from '../Milestone/MilestoneStatsPanel';
 import Modal from '../UI/Modal';
 import ConfirmModal from '../UI/ConfirmModal';
 
+
+
 function GoalMilestoneManager({
   goalId,
   selectedMilestonesCount = 0,
@@ -122,9 +124,9 @@ function GoalMilestoneManager({
     (m) => !m.isCompleted && isPast(new Date(m.targetDate))
   ).length;
 
-  const pct = selectedMilestonesCount
-    ? Math.round((completedCount / selectedMilestonesCount) * 100)
-    : 0;
+  const denominator = selectedMilestonesCount > 0 ? selectedMilestonesCount : totalCreated;
+const pct = denominator > 0 ? Math.round((completedCount / denominator) * 100) : 0;
+
 
   const sorted = [...milestones].sort((a, b) =>
     a.isCompleted !== b.isCompleted
@@ -135,6 +137,12 @@ function GoalMilestoneManager({
   );
 
   const milestonesLeftToSet = selectedMilestonesCount - totalCreated;
+  console.log('Overdue milestones:', milestones.filter(
+  (m) => !m.isCompleted && isPast(new Date(m.targetDate))
+));
+
+console.log('Milestones:', milestones);
+
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 space-y-8">

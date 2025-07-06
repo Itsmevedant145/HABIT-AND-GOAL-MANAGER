@@ -42,5 +42,8 @@ router.delete('/milestones/:milestoneId', authMiddleware, goalController.deleteM
 
 // Mark a milestone as complete
 router.put('/milestones/:milestoneId/complete', authMiddleware, goalController.completeMilestone);
+// insights for a specific goal
+router.get('/:id/insights', authMiddleware, goalController.getGoalInsights);
+
 
 module.exports = router;

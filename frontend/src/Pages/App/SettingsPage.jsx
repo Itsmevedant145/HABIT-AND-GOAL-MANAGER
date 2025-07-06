@@ -243,8 +243,8 @@ const SettingsPage = () => {
     },
     {
       id: 'delete',
-      title: 'Delete Account',
-      description: 'Permanently delete your account and all associated data.',
+      title: 'Delete Account OR Logout',
+      description: "You can sign out or choose to permanently delete your account and all associated data. Only deletion will remove your data.",
       icon: Trash2,
       bgColor: 'bg-red-50',
       border: 'border-red-100',

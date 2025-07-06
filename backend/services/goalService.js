@@ -3,6 +3,7 @@ const Milestone = require('../models/Milestone');
 const GoalHabit = require('../models/GoalHabit');
 const Habit = require('../models/Habit');
 const mongoose = require('mongoose');
+const { calculateStreaks } = require('../utils/streakUtils'); // update path to your actual file
 
 class GoalService {
   // Create Goal
@@ -248,55 +249,101 @@ async deleteMilestone(milestoneId, userId) {
 
   return { message: 'Habit unlinked successfully' };
 }
-
-
-
   // Get Insights (safe habit completedDates check)
   async getGoalInsights(goalId, userId) {
-    try {
-      const goal = await this.getGoalById(goalId, userId);
-      const links = await GoalHabit.find({ goalId }).populate('habitId');
+  try {
+    const goal = await this.getGoalById(goalId, userId);
+    const links = await GoalHabit.find({ goalId }).populate('habitId');
+    const milestones = await Milestone.find({ goalId });
 
-      const daysLeft = Math.ceil((new Date(goal.targetDate) - new Date()) / (1000 * 60 * 60 * 24));
-      const requiredDaily = daysLeft > 0 ? (100 - goal.progress) / daysLeft : 0;
+    const now = new Date();
+    const targetDate = new Date(goal.targetDate);
+    const daysLeft = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+    const requiredDaily = daysLeft > 0 ? (100 - goal.progress) / daysLeft : 0;
 
-      let bestHabit = null,
-          worstHabit = null,
-          bestProg = -1,
-          worstProg = 101;
+    // Habit performance over last 30 days
+    let bestHabit = null,
+      worstHabit = null,
+      bestProg = -1,
+      worstProg = 101;
+    let totalConsistency = 0;
+    let habitCount = 0;
 
-      const thresholdDate = new Date();
-      thresholdDate.setDate(thresholdDate.getDate() - 30);
+    const thresholdDate = new Date();
+    thresholdDate.setDate(thresholdDate.getDate() - 30);
 
-      for (const { habitId: habit } of links) {
-        if (!habit || !Array.isArray(habit.completedDates)) continue;
+    // Helper to calculate consistency as % regularity in 30 days
+    function calculateConsistency(completedDates) {
+      if (!completedDates.length) return 0;
+      const days = 30;
+      const completedSet = new Set(completedDates.map(d => new Date(d).toDateString()));
+      return Math.round((completedSet.size / days) * 100);
+    }
 
-        const completedCount = habit.completedDates.filter(date => new Date(date) >= thresholdDate).length;
-        const progress = (completedCount / 30) * 100;
+    const streaks = [];
 
-        if (progress > bestProg) {
-          bestProg = progress;
-          bestHabit = habit.title;
-        }
-        if (progress < worstProg) {
-          worstProg = progress;
-          worstHabit = habit.title;
-        }
+    for (const { habitId: habit } of links) {
+      if (!habit || !Array.isArray(habit.completedDates)) continue;
+
+      // Count completions last 30 days
+      const completedIn30Days = habit.completedDates.filter(date => new Date(date) >= thresholdDate);
+      const progress = (completedIn30Days.length / 30) * 100;
+
+      // Track best and worst habit by progress
+      if (progress > bestProg) {
+        bestProg = progress;
+        bestHabit = habit.title;
+      }
+      if (progress < worstProg) {
+        worstProg = progress;
+        worstHabit = habit.title;
       }
 
-      return {
-        currentProgress: goal.progress,
-        daysToTarget: daysLeft,
-        requiredDailyProgress: requiredDaily,
-        strongestHabit: bestHabit,
-        weakestHabit: worstHabit,
-        onTrack: requiredDaily <= 3,
-      };
-    } catch (err) {
-      console.error('Error in getGoalInsights:', err);
-      throw err;
+      // Consistency
+      const consistency = calculateConsistency(completedIn30Days);
+      totalConsistency += consistency;
+      habitCount++;
+
+      // Calculate streak using the imported function
+      const { currentStreak } = calculateStreaks(habit.completedDates);
+
+      streaks.push({
+        habit: habit.title,
+        streak: currentStreak,
+      });
     }
+
+    const averageConsistency = habitCount ? Math.round(totalConsistency / habitCount) : 0;
+
+    // Milestone summary
+    const completedMilestones = milestones.filter(m => m.isCompleted).length;
+    const upcomingMilestones = milestones.filter(m => !m.isCompleted && new Date(m.targetDate) >= now).length;
+
+    return {
+      currentProgress: goal.progress,
+      daysToTarget: daysLeft,
+      requiredDailyProgress: Math.round(requiredDaily * 100) / 100,
+      strongestHabit: bestHabit,
+      weakestHabit: worstHabit,
+      habitConsistency: averageConsistency,
+      totalLinkedHabits: links.length,
+      totalMilestones: milestones.length,
+      completedMilestones,
+      upcomingMilestones,
+      onTrack: requiredDaily <= 3,
+      paceStatus: requiredDaily <= 3 ? 'on-track' : 'behind',
+      streakData: streaks.sort((a, b) => b.streak - a.streak).slice(0, 2), // top 2 streaks
+      recommendations: requiredDaily > 3 ? [{
+        type: 'pace',
+        priority: 'high',
+        message: 'You might need to increase your daily effort to reach this goal on time.',
+        action: 'increase-effort'
+      }] : []
+    };
+  } catch (err) {
+    console.error('Error in getGoalInsights:', err);
+    throw err;
   }
 }
-
+}
 module.exports = new GoalService();

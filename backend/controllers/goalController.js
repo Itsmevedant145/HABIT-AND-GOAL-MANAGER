@@ -121,6 +121,15 @@ async deleteMilestone(req, res) {
     res.status(code).json({ success: false, message: error.message });
   }
 }
+async getGoalInsights(req, res) {
+  try {
+    const insights = await goalService.getGoalInsights(req.params.id, req.user.id);
+    res.status(200).json({ success: true, data: insights });
+  } catch (error) {
+    res.status(error.message === 'Goal not found' ? 404 : 500).json({ success: false, message: error.message });
+  }
+}
+
 
 
 }

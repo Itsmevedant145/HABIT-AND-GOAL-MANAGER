@@ -10,6 +10,9 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import { FiTrendingUp } from 'react-icons/fi';
+import { FaTrophy } from 'react-icons/fa';
+import { MdWarningAmber } from 'react-icons/md'
 import { useGoalsData } from "../../hooks/useGoalsData"; // adjust path
 
 ChartJS.register(
@@ -176,20 +179,29 @@ const ProgressChart = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-          <div className="text-2xl font-bold text-purple-600">{averageProgress}%</div>
-          <div className="text-sm text-gray-600">Average Progress</div>
-        </div>
-        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-          <div className="text-2xl font-bold text-green-600">{highPerformers}</div>
-          <div className="text-sm text-gray-600">High Performers</div>
-        </div>
-        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-          <div className="text-2xl font-bold text-red-500">{needsAttention}</div>
-          <div className="text-sm text-gray-600">Need Attention</div>
-        </div>
-      </div>
+   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 text-center">
+    <div className="flex justify-center mb-2">
+      <FiTrendingUp className="text-purple-600 w-10 h-10" />
+    </div>
+    <div className="text-3xl font-bold text-purple-600">{averageProgress}%</div>
+    <div className="text-sm text-gray-600 font-medium">Average Progress</div>
+  </div>
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 text-center">
+    <div className="flex justify-center mb-2">
+      <FaTrophy className="text-green-600 w-10 h-10" />
+    </div>
+    <div className="text-3xl font-bold text-green-600">{highPerformers}</div>
+    <div className="text-sm text-gray-600 font-medium">High Performers</div>
+  </div>
+  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 text-center">
+    <div className="flex justify-center mb-2">
+      <MdWarningAmber className="text-red-500 w-10 h-10" />
+    </div>
+    <div className="text-3xl font-bold text-red-500">{needsAttention}</div>
+    <div className="text-sm text-gray-600 font-medium">Need Attention</div>
+  </div>
+</div>
 
       {/* Chart Container */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/30 mb-6">

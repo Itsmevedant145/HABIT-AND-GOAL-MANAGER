@@ -1,7 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
+import ConfirmModal from '../UI/ConfirmModal';
 import { formatDistanceToNowStrict, isPast } from 'date-fns';
 import {
   Target,
+  ArrowRight,
   Plus,
   Calendar,
   CheckCircle,
@@ -26,6 +29,8 @@ function GoalsDisplay({
   statusColors = {},
   priorityColors = {},
 }) {
+  const [habitModalGoal, setHabitModalGoal] = useState(null);
+
   const isEmpty = goals.length === 0;
 
   if (isEmpty) {
@@ -125,13 +130,8 @@ return (
                           : 'var(--color-status-active-from)'
                     }
                   />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-lg font-bold px-2 py-1 rounded-md"
-                      style={{ color: 'var(--text-primary)', backgroundColor: 'var(--bg-card)' }}
-                    >
-                      {progress}%
-                    </span>
-                  </div>
+                  
+                  
                 </div>
               </div>
 
@@ -206,25 +206,22 @@ return (
                 )}
 
                 {/* Linked habits */}
-                {goal.linkedHabits && goal.linkedHabits.length > 0 && (
-                  <div className="mt-3 space-y-1">
-                    <div className="flex items-center gap-2 text-sm text-[var(--color-status-active-from)]">
-                      <Link className="w-4 h-4" />
-                      <span className="font-medium">
-                        {goal.linkedHabits.length} habit{goal.linkedHabits.length > 1 ? 's' : ''} linked
-                      </span>
-                    </div>
-                    <ul className="ml-6 list-disc text-xs text-[var(--text-muted)]">
-                      {goal.linkedHabits.map((link, index) =>
-                        link.habitId?.title ? (
-                          <li key={index} className="truncate">
-                            {link.habitId.title}
-                          </li>
-                        ) : null
-                      )}
-                    </ul>
-                  </div>
-                )}
+{goal.linkedHabits && goal.linkedHabits.length > 0 && (
+  <button title="View linked habits"
+    onClick={(e) => {
+      e.stopPropagation();
+      setHabitModalGoal(goal); // Open the modal
+    }}
+    className="flex items-center gap-1 text-sm font-medium text-[var(--color-status-active-from)] hover:underline hover:text-[var(--priority-low)] transition"
+  >
+    <span>
+      {goal.linkedHabits.length} habit
+      {goal.linkedHabits.length > 1 ? 's' : ''} linked
+    </span>
+    <ArrowRight className="w-4 h-4" />
+  </button>
+)}
+
               </div>
 
               {/* Footer Actions */}
@@ -233,17 +230,7 @@ return (
                 style={{ borderColor: 'var(--settings-border)' }}
               >
                 <div className="flex items-center gap-2">
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-      onViewDetails(goal._id);
-    }}
-    className="p-2 text-[var(--text-muted)] hover:text-[var(--color-status-active-from)] transition-colors duration-200"
-    title="View Details"
-  >
-    <Eye className="w-4 h-4" />
-  </button>
-
+ 
   <button
     onClick={(e) => {
       e.stopPropagation();
@@ -294,6 +281,43 @@ return (
         );
       })}
     </div>
+  <ConfirmModal
+  isOpen={!!habitModalGoal}
+  onCancel={() => setHabitModalGoal(null)}
+  title="Linked Habits"
+>
+  {habitModalGoal?.linkedHabits?.length > 0 ? (
+    <div className="space-y-4">
+      {habitModalGoal.linkedHabits.map((link, index) =>
+        link.habitId?.title ? (
+          <div
+            key={index}
+            className="flex items-center justify-between px-4 py-3 rounded-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-gray-700 dark:to-gray-800 border border-green-200 dark:border-gray-600 shadow-sm"
+          >
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-green-200 text-green-800 font-bold dark:bg-green-500 dark:text-white">
+                {link.habitId.title[0].toUpperCase()}
+              </span>
+              <div>
+                <h4 className="text-sm font-semibold text-gray-800 dark:text-white">
+                  {link.habitId.title}
+                </h4>
+                {link.habitId.description && (
+                  <p className="text-xs text-gray-500 dark:text-gray-300">
+                    {link.habitId.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : null
+      )}
+    </div>
+  ) : (
+    <p className="text-gray-600 dark:text-gray-300">No linked habits.</p>
+  )}
+</ConfirmModal>
+
   </div>
 );
 }
