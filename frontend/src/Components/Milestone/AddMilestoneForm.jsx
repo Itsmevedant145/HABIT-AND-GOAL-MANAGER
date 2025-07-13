@@ -3,7 +3,8 @@ import MilestoneForm from '../Milestone/MilestoneForm';
 import { Sparkles } from 'lucide-react';
 
 const AddMilestoneForm = ({ newMilestone, setNewMilestone, onSubmit, onCancel, loading }) => (
-  <div className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+  <div className="relative bg-gradient-to-br from-blue-100 via-blue-300 to-blue-600 dark:from-blue-200 dark:via-blue-500 dark:to-blue-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+
     {/* Animated background pattern */}
     <div className="absolute inset-0 opacity-5">
       <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>

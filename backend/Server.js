@@ -13,6 +13,8 @@ const goalRoutes = require('./routes/goalRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
+console.log('PORT:', process.env.PORT || 'Not set');
 
 // Connect to MongoDB
 connectDB();

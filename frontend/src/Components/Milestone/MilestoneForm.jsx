@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import { TextField } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const MilestoneForm = ({ onSubmit, loading = false, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -15,6 +19,7 @@ const MilestoneForm = ({ onSubmit, loading = false, onCancel }) => {
   };
 
   return (
+    
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Title Input */}
       <div className="relative group">
@@ -41,15 +46,29 @@ const MilestoneForm = ({ onSubmit, loading = false, onCancel }) => {
 
       {/* Date and Priority Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="relative">
-          <input
-            type="date"
-            value={formData.targetDate}
-            onChange={(e) => setFormData({ ...formData, targetDate: e.target.value })}
-            className="w-full px-4 py-4 bg-white/90 dark:bg-slate-700/90 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm"
-          />
-        </div>
+        {/* MUI Date Picker */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Target Date"
+            value={formData.targetDate ? new Date(formData.targetDate) : null}
+            onChange={(date) => {
+              if (date) {
+                const isoDate = date.toISOString().split('T')[0];
+                setFormData({ ...formData, targetDate: isoDate });
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+               className="bg-white/90 dark:bg-slate-600/80 border border-slate-500/50 text-slate-200 rounded-xl"
 
+              />
+            )}
+          />
+        </LocalizationProvider>
+
+        {/* Priority Dropdown */}
         <div className="relative">
           <select
             value={formData.priority}

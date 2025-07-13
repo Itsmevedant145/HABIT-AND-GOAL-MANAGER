@@ -7,6 +7,7 @@ import { API_Path } from '../../Utils/apiPath';
 import { useAuth } from '../../Components/Auth/AuthContext';
 import ConfirmModal from '../UI/ConfirmModal';
 import { toast } from 'react-toastify';
+import { useTheme } from '../../ThemeContext'; // ✅ Adjust path as needed
 
 const GoalHabitLinker = ({ goalId, onHabitsUpdate, onClose }) => {
   const [availableHabits, setAvailableHabits] = useState([]);
@@ -17,7 +18,7 @@ const GoalHabitLinker = ({ goalId, onHabitsUpdate, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 const [habitToUnlink, setHabitToUnlink] = useState(null);
-
+  const { theme } = useTheme(); 
  
   const { token } = useAuth();
   const extractHabitId = (habitRef) => typeof habitRef === 'string' ? habitRef : habitRef._id;
@@ -112,7 +113,15 @@ const confirmUnlink = async () => {
 
 
 return (
-  <div className="relative bg-gradient-to-br from-cyan-50 via-white to-blue-50 dark:from-blue-900 dark:via-blue-800 dark:to-cyan-900 rounded-2xl shadow-2xl border border-blue-200 dark:border-blue-700 overflow-hidden">
+  <div
+    className="relative rounded-2xl shadow-2xl border overflow-hidden transition-colors"
+    style={{
+      background: 'linear-gradient(to bottom right, var(--bg-gradient-from), var(--bg-gradient-to))',
+      borderColor: 'var(--goal-card-border)',
+      color: 'var(--text-primary)',
+    }}
+    data-theme={theme} // ✅ Theme context applied here
+  >
     {/* Background blurred circles */}
     <div className="absolute inset-0 opacity-5 pointer-events-none">
       <div className="absolute top-0 -left-4 w-72 h-72 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -294,9 +303,7 @@ return (
                   key={linkedHabit.habitId}
                   className="group relative bg-white/90 dark:bg-blue-900/90 backdrop-blur-sm rounded-2xl p-6 border border-blue-200 dark:border-blue-700 shadow transition-shadow duration-300 hover:shadow-xl hover:scale-[1.03] transform"
                   style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  {/* Removed the blurred glow div */}
-
+                >{/* Removed the blurred glow div */}
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 space-y-3">
                       <div className="flex items-center gap-3 flex-wrap">
@@ -340,7 +347,7 @@ return (
         )}
       </div>
     </div>
-   
+
     <ConfirmModal
       isOpen={showConfirmModal}
       title="Unlink Habit?"
@@ -353,6 +360,5 @@ return (
     />
   </div>
 );
-
 };
 export default GoalHabitLinker;

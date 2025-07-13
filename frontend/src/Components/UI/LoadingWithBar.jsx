@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import { useTheme } from "../../ThemeContext"; // Adjust the import path as needed
 const LoadingWithBar = ({
   message = "Please wait, it's loading...",
   duration = 4000,
 }) => {
   const [progress, setProgress] = useState(0);
-
+  const { theme } = useTheme(); // For potential future enhancements or debug
   useEffect(() => {
     let start = Date.now();
 
@@ -52,26 +52,34 @@ const LoadingWithBar = ({
     );
   });
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-8">
-      <div className="text-center space-y-8">
-        {/* Message */}
-        <h2 className="text-2xl font-medium text-gray-700 mb-8">
-          {message}
-        </h2>
+return (
+  <div
+    className="flex flex-col items-center justify-center min-h-screen p-8 transition-colors"
+    style={{
+      background: 'var(--bg-primary)',
+      color: 'var(--text-primary)',
+    }}
+    data-theme={theme} // ✅ Enables theme-aware styling
+  >
+    <div className="text-center space-y-8">
+      {/* Message */}
+      <h2 className="text-2xl font-medium" style={{ color: 'var(--text-secondary)' }}>
+        {message}
+      </h2>
 
-        {/* Progress percentage */}
-        <div className="text-4xl font-bold text-gray-800 mb-6">
-          {Math.floor(progress)}%
-        </div>
+      {/* Progress percentage */}
+      <div className="text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>
+        {Math.floor(progress)}%
+      </div>
 
-        {/* Dots grid */}
-        <div className="grid grid-cols-10 gap-2 max-w-md mx-auto">
-          {dots}
-        </div>
+      {/* Dots grid */}
+      <div className="grid grid-cols-10 gap-2 max-w-md mx-auto">
+        {dots}
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default LoadingWithBar;

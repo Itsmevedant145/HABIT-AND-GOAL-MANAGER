@@ -18,13 +18,15 @@ import MilestoneStatsPanel from '../Milestone/MilestoneStatsPanel';
 import Modal from '../UI/Modal';
 import ConfirmModal from '../UI/ConfirmModal';
 
-
+import { useTheme } from '../../ThemeContext'; // Adjust the import path!
 
 function GoalMilestoneManager({
   goalId,
   selectedMilestonesCount = 0,
   onMilestonesUpdate,
 }) {
+  const { theme } = useTheme();
+
   const [milestones, setMilestones] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -125,8 +127,7 @@ function GoalMilestoneManager({
   ).length;
 
   const denominator = selectedMilestonesCount > 0 ? selectedMilestonesCount : totalCreated;
-const pct = denominator > 0 ? Math.round((completedCount / denominator) * 100) : 0;
-
+  const pct = denominator > 0 ? Math.round((completedCount / denominator) * 100) : 0;
 
   const sorted = [...milestones].sort((a, b) =>
     a.isCompleted !== b.isCompleted
@@ -137,15 +138,17 @@ const pct = denominator > 0 ? Math.round((completedCount / denominator) * 100) :
   );
 
   const milestonesLeftToSet = selectedMilestonesCount - totalCreated;
-  console.log('Overdue milestones:', milestones.filter(
-  (m) => !m.isCompleted && isPast(new Date(m.targetDate))
-));
-
-console.log('Milestones:', milestones);
-
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 space-y-8">
+    <div
+      className="w-full max-w-5xl mx-auto px-4 space-y-8"
+      style={{
+        backgroundColor: 'var(--bg-main)',
+        color: 'var(--text-primary)',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+      }}
+      data-theme={theme} // optionally added if you want to use it for CSS selectors
+    >
       <MilestoneStatsPanel
         completedCount={completedCount}
         overdueCount={overdueCount}
