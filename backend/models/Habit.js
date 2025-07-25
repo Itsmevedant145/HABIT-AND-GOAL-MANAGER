@@ -22,12 +22,15 @@ const habitSchema = new mongoose.Schema({
     default: Date.now,
   },
   priority: {
-  type: Number,
-  default: 0,
-  min: 0,
-  max: 3
-},// 0: low, 1: medium, 2: high
-  completedDates: [Date], // dates when habit was completed
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 3,
+  }, // 0: low, 1: medium, 2: high
+  completedDates: {
+    type: [String], // Store as ["YYYY-MM-DD"]
+    default: [],
+  },
 });
 
 module.exports = mongoose.model('Habit', habitSchema);

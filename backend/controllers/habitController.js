@@ -13,7 +13,7 @@ exports.createHabit = async (req, res) => {
       frequency: frequency.toLowerCase(),
       userId: req.user.id,
       priority: priority || 0,
-      completedDates: [],
+      completedDates: [], // store as ["2025-07-23", ...]
     });
 
     await newHabit.save();
@@ -24,14 +24,13 @@ exports.createHabit = async (req, res) => {
   }
 };
 
-// Get all habits for the logged-in user
+// Get all habits
 exports.getHabits = async (req, res) => {
   try {
     const { sortBy } = req.query;
-
     const query = { userId: req.user.id };
-    let habitsQuery = Habit.find(query);
 
+    let habitsQuery = Habit.find(query);
     if (sortBy === 'priority') {
       habitsQuery = habitsQuery.sort({ priority: -1 });
     }
@@ -51,7 +50,6 @@ exports.getHabitById = async (req, res) => {
     const userId = req.user.id;
 
     const habit = await Habit.findOne({ _id: habitId, userId });
-
     if (!habit) {
       return res.status(404).json({ message: 'Habit not found' });
     }
@@ -67,7 +65,6 @@ exports.getHabitById = async (req, res) => {
 exports.updateHabit = async (req, res) => {
   try {
     const habit = await Habit.findOne({ _id: req.params.id, userId: req.user.id });
-
     if (!habit) {
       return res.status(404).json({ message: 'Habit not found' });
     }
@@ -89,7 +86,6 @@ exports.updateHabit = async (req, res) => {
 exports.deleteHabit = async (req, res) => {
   try {
     const habit = await Habit.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
-
     if (!habit) {
       return res.status(404).json({ message: 'Habit not found' });
     }
@@ -107,21 +103,19 @@ exports.toggleHabitCompletion = async (req, res) => {
     const habitId = req.params.id;
     const userId = req.user.id;
 
-    let { date } = req.body;
-    const today = new Date();
-    const isoToday = today.toISOString().split('T')[0];
-    date = date ? new Date(date).toISOString().split('T')[0] : isoToday;
-    const dateObj = new Date(date);
+    // Always store as 'YYYY-MM-DD'
+    const dateStr = req.body.date
+      ? new Date(req.body.date).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0];
 
     const habit = await Habit.findOne({ _id: habitId, userId });
-
     if (!habit) return res.status(404).json({ message: 'Habit not found' });
 
-    const dateExists = habit.completedDates.some(d => d.toISOString().split('T')[0] === date);
+    const dateExists = habit.completedDates.includes(dateStr);
 
     const updateQuery = dateExists
-      ? { $pull: { completedDates: dateObj } }
-      : { $addToSet: { completedDates: dateObj } };
+      ? { $pull: { completedDates: dateStr } }
+      : { $addToSet: { completedDates: dateStr } };
 
     const updatedHabit = await Habit.findOneAndUpdate(
       { _id: habitId, userId },
@@ -129,18 +123,11 @@ exports.toggleHabitCompletion = async (req, res) => {
       { new: true }
     );
 
-    const completedDateStrings = updatedHabit.completedDates.map(d => d.toISOString().split('T')[0]);
-    const streakData = calculateStreaks(completedDateStrings);
-
     res.status(200).json({
       message: dateExists ? 'Unmarked as completed' : 'Marked as completed',
       habitId: updatedHabit._id,
-      title: updatedHabit.title,
-      category: updatedHabit.category,
-      completedDates: completedDateStrings,
-      ...streakData,
+      completedDates: updatedHabit.completedDates,
     });
-
   } catch (error) {
     console.error('Toggle Completion Error:', error);
     res.status(500).json({ message: 'Server error' });
@@ -154,19 +141,15 @@ exports.toggleTodayCompletion = async (req, res) => {
     const userId = req.user.id;
 
     const todayStr = new Date().toISOString().split('T')[0];
-    const todayDate = new Date(todayStr);
 
     const habit = await Habit.findOne({ _id: habitId, userId });
-
     if (!habit) return res.status(404).json({ message: 'Habit not found' });
 
-    const isAlreadyCompleted = habit.completedDates.some(
-      d => new Date(d).toISOString().split('T')[0] === todayStr
-    );
+    const isAlreadyCompleted = habit.completedDates.includes(todayStr);
 
     const updateQuery = isAlreadyCompleted
-      ? { $pull: { completedDates: todayDate } }
-      : { $addToSet: { completedDates: todayDate } };
+      ? { $pull: { completedDates: todayStr } }
+      : { $addToSet: { completedDates: todayStr } };
 
     const updatedHabit = await Habit.findOneAndUpdate(
       { _id: habitId, userId },
@@ -174,13 +157,9 @@ exports.toggleTodayCompletion = async (req, res) => {
       { new: true }
     );
 
-    const completedDateStrings = updatedHabit.completedDates.map(
-      d => new Date(d).toISOString().split('T')[0]
-    );
-
     res.status(200).json({
       message: isAlreadyCompleted ? 'Unmarked as completed' : 'Marked as completed',
-      completedDates: completedDateStrings,
+      completedDates: updatedHabit.completedDates,
     });
   } catch (error) {
     console.error('Toggle Today Error:', error);

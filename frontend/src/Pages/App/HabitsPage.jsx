@@ -12,6 +12,7 @@ import HabitForm from '../../Components/Habits/HabitForm ';
 import ControlsSection1 from '../../Components/Habits/ControlsSection1';
 import { useSortedHabits } from '../../Hooks/useSortedHabits';
 
+
 function HabitsPage() {
   const [habits, setHabits] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -140,6 +141,7 @@ function HabitsPage() {
           setHabitToDelete(null);
         }}
       />
+     
     </div>
   );
 }
