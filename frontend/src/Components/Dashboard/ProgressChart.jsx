@@ -13,7 +13,7 @@ import {
 import { FiTrendingUp } from 'react-icons/fi';
 import { FaTrophy } from 'react-icons/fa';
 import { MdWarningAmber } from 'react-icons/md'
-import { useGoalsData } from "../../hooks/useGoalsData";
+import { useGoalsData } from "../..//Hooks/useGoalsData";
 
 ChartJS.register(
   LineElement,
