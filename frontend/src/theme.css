@@ -1,160 +1,319 @@
 :root {
-  /* Base background and text */
-  --bg-main: #f3f4f6;        /* gray-100 */
-  --bg-card: #ffffff;
-  --bg-hover: #f9fafb;
-  --text-primary: #111827;
-  --text-muted: #6b7280;     /* gray-500 */
-  --card-shadow: rgba(0, 0, 0, 0.05);
+  /* ===== VIBRANT LIGHT THEME ===== */
+  --bg-main: linear-gradient(135deg, #fef7ff 0%, #f0f4ff 50%, #f0fdfa 100%);
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-hover: linear-gradient(135deg, #fdf4ff 0%, #ede9fe 100%);
+  --bg-secondary: linear-gradient(135deg, #ddd6fe 0%, #c7d2fe 100%);
+  
+  --color-status-active-from: var(--gradient-active-from);
+  --color-status-active-to: var(--gradient-active-to);
+  --color-status-completed-from: var(--gradient-completed-from);
+  --color-status-completed-to: var(--gradient-completed-to);
+  --color-status-cancelled-from: var(--gradient-cancelled-from);
+  --color-status-cancelled-to: var(--gradient-cancelled-to);
 
-  /* Priority Colors */
-  --priority-high: #dc2626;    /* red-600 */
-  --priority-medium: #facc15;  /* yellow-400 */
-  --priority-low: #16a34a;     /* green-600 */
+  /* Text colors - enhanced contrast */
+  --text-primary: #1e1b4b;    /* deep indigo */
+  --text-muted: #7c3aed;      /* vibrant purple */
+  --text-secondary: #4338ca;  /* bright indigo */
 
-  /* Form / Button Colors */
-  --btn-bg: #4f46e5;           /* indigo-600 */
-  --btn-bg-hover: #4338ca;
+  --card-shadow: rgba(124, 58, 237, 0.15);
+
+  /* Enhanced priority colors */
+  --priority-high: #ff3b82;     /* hot pink */
+  --priority-high-bg: linear-gradient(135deg, #fef7f7 0%, #fdf2f8 100%);
+  --priority-medium: #ff8c00;   /* vivid orange */
+  --priority-medium-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  --priority-low: #00d084;      /* emerald green */
+  --priority-low-bg: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+
+  /* Vibrant buttons */
+  --btn-primary: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  --btn-primary-hover: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+  --btn-secondary: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  --btn-secondary-hover: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   --btn-text: #ffffff;
+  --btn-text-dark: #1e1b4b;
 
-  /* Navbar (light theme) */
-  --nav-bg-from: #7c3aed;      /* purple-600 */
-  --nav-bg-via: #ec4899;       /* pink-500 */
-  --nav-bg-to: #6d28d9;        /* purple-700 */
-  --nav-text: white;
-  --nav-active-bg: white;
-  --nav-active-text: #6d28d9;
-  --nav-hover-bg: white;
-  --nav-hover-text: #7c3aed;
+  /* Stunning navbar */
+  --nav-bg-from: #ff6b6b;      /* coral red */
+  --nav-bg-via: #4ecdc4;       /* turquoise */
+  --nav-bg-to: #45b7d1;        /* sky blue */
+  --nav-text: #ffffff;
+  --nav-active-bg: rgba(255, 255, 255, 0.25);
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: rgba(255, 255, 255, 0.15);
+  --nav-hover-text: #f0f9ff;
 
-  /* Alerts / Cards */
-  --success-bg: #ecfdf5;
-  --success-border: #d1fae5;
-  --success-text: #065f46;
-  --error-bg: #fef2f2;
-  --error-border: #fecaca;
-  --error-text: #991b1b;
+  /* Enhanced status system */
+  --status-success: #10d665;
+  --status-success-bg: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  --status-warning: #ff9500;
+  --status-warning-bg: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  --status-error: #ff4757;
+  --status-error-bg: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  --status-info: #5bc0de;
+  --status-info-bg: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 
-  /* Footer (light theme) */
-  --footer-bg: #f9fafb;          /* gray-50 */
-  --footer-text: #4b5563;        /* gray-600 */
-  --footer-border: #e5e7eb;      /* gray-200 */
-  --footer-link-hover: #4f46e5;  /* indigo-600 */
+  /* Modern footer */
+  --footer-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --footer-text: #ffffff;
+  --footer-border: rgba(255, 255, 255, 0.2);
+  --footer-link: #fbbf24;
+  --footer-link-hover: #f59e0b;
 
-  /* Settings page background and text */
+  /* Settings enhancement */
   --settings-bg: var(--bg-main);
   --settings-card-bg: var(--bg-card);
   --settings-text-primary: var(--text-primary);
   --settings-text-muted: var(--text-muted);
-  --settings-border: #e5e7eb; /* light border */
+  --settings-border: linear-gradient(135deg, #e879f9 0%, #c084fc 100%);
+  --settings-accent: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
 
-  /* Green Button Gradient */
-  --btn-green-text: #000000;
-  --btn-green-from: #16a34a;        /* green-600 */
-  --btn-green-to: #22c55e;          /* green-500 */
-  --btn-green-from-hover: #15803d;  /* green-700 */
-  --btn-green-to-hover: #16a34a;    /* green-600 */
-   --color-priority-high-from: #ef4444;   /* red-500 */
-  --color-priority-high-to: #dc2626;     /* red-600 */
+  /* Spectacular gradient buttons */
+  --btn-gradient-primary-from: #ff6b9d;
+  --btn-gradient-primary-to: #c44569;
+  --btn-gradient-success-from: #00d2ff;
+  --btn-gradient-success-to: #3a7bd5;
+  --btn-gradient-danger-from: #ff9a9e;
+  --btn-gradient-danger-to: #fecfef;
 
-  --color-priority-medium-from: #facc15; /* yellow-400 */
-  --color-priority-medium-to: #eab308;   /* yellow-500 */
+  /* Dynamic status gradients */
+  --gradient-active-from: #667eea;
+  --gradient-active-to: #764ba2;
+  --gradient-completed-from: #11998e;
+  --gradient-completed-to: #38ef7d;
+  --gradient-paused-from: #ffecd2;
+  --gradient-paused-to: #fcb69f;
+  --gradient-cancelled-from: #fc466b;
+  --gradient-cancelled-to: #3f5efb;
 
-  --color-priority-low-from: #22c55e;    /* green-500 */
-  --color-priority-low-to: #16a34a;      /* green-600 */
+  /* Enhanced cards */
+  --card-border: linear-gradient(135deg, #e879f9 0%, #c084fc 100%);
+  --card-hover-border: linear-gradient(135deg, #d946ef 0%, #a855f7 100%);
+  --card-hover-shadow: rgba(168, 85, 247, 0.25);
 
-  --color-status-active-from: #3b82f6;   /* blue-500 */
-  --color-status-active-to: #2563eb;     /* blue-600 */
+  /* Vibrant accents */
+  --accent-primary: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  --accent-secondary: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  --accent-tertiary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 
-  --color-status-completed-from: #22c55e;
-  --color-status-completed-to: #16a34a;
-  --bg-card: rgba(255, 255, 255, 0.7); /* for light theme */
-
-  --color-status-paused-from: #eab308;
-  --color-status-paused-to: #ca8a04;
-
-  --color-status-cancelled-from: #ef4444;
-  --color-status-cancelled-to: #dc2626;
-  --bg-gradient-from: #f8fafc; /* slate-50 */
-  --bg-gradient-via: #eff6ff;  /* blue-50 */
-  --bg-gradient-to: #eef2ff;   /* indigo-50 */
-
-   --goal-card-border: #e5e7eb;          /* for light mode cards */
-  --goal-card-border-dark: #374151;     /* for dark mode cards */
-  --goal-card-hover: #bfdbfe; 
-    --input-focus-ring: var(--color-status-active-from);
+  /* Enhanced inputs */
+  --input-focus-ring: #a855f7;
+  --input-border: #c084fc;
+  --input-border-focus: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
 }
 
+/* ===== VIBRANT DARK THEME ===== */
 [data-theme='dark'] {
-  /* Base background and text */
-    --goal-card-border: var(--goal-card-border-dark);
-  --bg-main: #1e1e2f;
-  --bg-card: #2c2c3a;
-  --bg-hover: #374151;
-  --text-primary: #f3f4f6;
-  --text-muted: #9ca3af;
-  --card-shadow: rgba(255, 255, 255, 0.05);
- --bg-gradient-from: #111827;  /* gray-900 */
-  --bg-gradient-via: #1e3a8a;   /* blue-900 */
-  --bg-gradient-to: #312e81;    /* indigo-900 */
-  /* Priority Colors (lighter for dark bg) */
-  --priority-high: #f87171;    /* red-400 */
-  --priority-medium: #fde68a;  /* yellow-300 */
-  --priority-low: #6ee7b7;     /* green-300 */
+  --bg-main: linear-gradient(135deg, #0c0a1e 0%, #1a0b2e 50%, #16213e 100%);
+  --bg-card: rgba(30, 41, 59, 0.95);
+  --bg-hover: linear-gradient(135deg, #2d1b3d 0%, #3730a3 100%);
+  --bg-secondary: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
 
-  /* Form / Button Colors */
-  --btn-bg: #6366f1; /* indigo-500 */
-  --btn-bg-hover: #4f46e5;
+  --color-status-active-from: var(--gradient-active-from);
+  --color-status-active-to: var(--gradient-active-to);
+  --color-status-completed-from: var(--gradient-completed-from);
+  --color-status-completed-to: var(--gradient-completed-to);
+  --color-status-cancelled-from: var(--gradient-cancelled-from);
+  --color-status-cancelled-to: var(--gradient-cancelled-to);
+
+  --text-primary: #f8fafc;
+  --text-muted: #c084fc;      /* bright purple */
+  --text-secondary: #a78bfa;  /* light purple */
+
+  --card-shadow: rgba(168, 85, 247, 0.3);
+
+  /* Dark theme priority colors */
+  --priority-high: #ff6b9d;
+  --priority-high-bg: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(196, 69, 105, 0.15) 100%);
+  --priority-medium: #ffb347;
+  --priority-medium-bg: linear-gradient(135deg, rgba(255, 179, 71, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+  --priority-low: #4ade80;
+  --priority-low-bg: linear-gradient(135deg, rgba(74, 222, 128, 0.15) 0%, rgba(34, 197, 94, 0.15) 100%);
+
+  --btn-primary: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  --btn-primary-hover: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+  --btn-secondary: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  --btn-secondary-hover: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
   --btn-text: #ffffff;
+  --btn-text-dark: #f8fafc;
 
-  /* Navbar (dark theme) */
-  --nav-bg-from: #2a1a4f;
-  --nav-bg-via: #43175a;
-  --nav-bg-to: #5b1d72;
-  --nav-text: var(--text-primary);
-  --nav-active-bg: #d8b4fe;        /* purple-300 */
-  --nav-active-text: #4c1d95;      /* purple-900 */
-  --nav-hover-bg: #d8b4fe;
-  --nav-hover-text: #4c1d95;
+  /* Electric navbar for dark */
+  --nav-bg-from: #667eea;
+  --nav-bg-via: #764ba2;
+  --nav-bg-to: #f093fb;
+  --nav-text: #f8fafc;
+  --nav-active-bg: rgba(248, 250, 252, 0.2);
+  --nav-active-text: #ffffff;
+  --nav-hover-bg: rgba(248, 250, 252, 0.15);
+  --nav-hover-text: #e2e8f0;
 
-  /* Alerts / Cards */
-  --success-bg: #064e3b;
-  --success-border: #047857;
-  --success-text: #d1fae5;
-  --error-bg: #7f1d1d;
-  --error-border: #ef4444;
-  --error-text: #fee2e2;
+  --status-success: #22d3ee;
+  --status-success-bg: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+  --status-warning: #fbbf24;
+  --status-warning-bg: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(245, 158, 11, 0.2) 100%);
+  --status-error: #f87171;
+  --status-error-bg: linear-gradient(135deg, rgba(248, 113, 113, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
+  --status-info: #60a5fa;
+  --status-info-bg: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
 
-  /* Footer (dark theme) */
-  --footer-bg: #1f2937;            /* gray-800 */
-  --footer-text: #d1d5db;          /* gray-300 */
-  --footer-border: #374151;        /* gray-700 */
-  --footer-link-hover: #c4b5fd;    /* indigo-300 */
+  --footer-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  --footer-text: #cbd5e1;
+  --footer-border: rgba(192, 132, 252, 0.3);
+  --footer-link: #fbbf24;
+  --footer-link-hover: #f59e0b;
 
-  /* Settings page background and text */
-  --settings-bg: var(--bg-main);
-  --settings-card-bg: var(--bg-card);
-  --settings-text-primary: var(--text-primary);
-  --settings-text-muted: var(--text-muted);
-  --settings-border: #374151; /* darker border */
+  --settings-border: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  --settings-accent: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
 
-  /* Green Button Gradient */
-  --btn-green-text: #d1fae5;         /* light green text */
-  --btn-green-from: #22c55e;         /* green-500 */
-  --btn-green-to: #16a34a;           /* green-600 */
-  --btn-green-from-hover: #15803d;   /* green-700 */
-  --btn-green-to-hover: #15803d;     /* darker green */
-   --bg-card-dark: rgba(17, 17, 17, 0.6);
+  /* Dark gradient buttons */
+  --btn-gradient-primary-from: #667eea;
+  --btn-gradient-primary-to: #764ba2;
+  --btn-gradient-success-from: #11998e;
+  --btn-gradient-success-to: #38ef7d;
+  --btn-gradient-danger-from: #fc466b;
+  --btn-gradient-danger-to: #3f5efb;
+
+  /* Dark status gradients */
+  --gradient-active-from: #3b82f6;
+  --gradient-active-to: #1e40af;
+  --gradient-completed-from: #10b981;
+  --gradient-completed-to: #047857;
+  --gradient-paused-from: #f59e0b;
+  --gradient-paused-to: #d97706;
+  --gradient-cancelled-from: #ef4444;
+  --gradient-cancelled-to: #b91c1c;
+
+  --card-border: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --card-hover-border: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --card-hover-shadow: rgba(139, 92, 246, 0.4);
+
+  /* Dark accents */
+  --accent-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  --accent-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --accent-tertiary: linear-gradient(135deg, #f472b6 0%, #fb7185 100%);
+
+  --input-border: #6366f1;
+  --input-border-focus: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
 }
 
-/* Global body styles */
+/* ===== ENHANCED BASE STYLES ===== */
 body {
-  background-color: var(--bg-main);
+  background: var(--bg-main);
+  background-attachment: fixed;
   color: var(--text-primary);
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Neon focus states */
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
   outline: none;
-  box-shadow: 0 0 0 2px var(--input-focus-ring);
+  border: 2px solid transparent;
+  background-image: var(--input-border-focus);
+  background-clip: padding-box;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 0 3px rgba(236, 72, 153, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Enhanced button states */
+button:focus,
+button:active {
+  background: var(--btn-primary-hover);
+  color: var(--btn-text);
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* Electric gradient utility classes */
+.gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: var(--btn-text);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.gradient-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: var(--btn-text);
+  box-shadow: 0 8px 25px rgba(17, 153, 142, 0.3);
+}
+
+.gradient-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(17, 153, 142, 0.4);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+  color: var(--btn-text);
+  box-shadow: 0 8px 25px rgba(252, 70, 107, 0.3);
+}
+
+.gradient-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(252, 70, 107, 0.4);
+}
+
+/* Advanced glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+}
+
+[data-theme='dark'] .glass {
+  background: rgba(30, 41, 59, 0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated background patterns */
+.animated-bg {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Pulsing accents */
+.pulse-accent {
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* Neon text effect */
+.neon-text {
+  text-shadow: 0 0 5px var(--accent-primary), 0 0 10px var(--accent-primary), 0 0 15px var(--accent-primary);
+  animation: neonFlicker 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useAuth } from '../../Components/Auth/AuthContext';
 import { API_BASE_URL, API_Path } from '../../Utils/apiPath';
-import { 
-  CheckCircle, 
-  Target, 
-  BarChart3, 
+import {
+  CheckCircle,
+  Target,
+  BarChart3,
   XCircle,
   Award
 } from 'lucide-react';
@@ -53,25 +53,25 @@ const Statistics1 = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'short', 
-      month: 'short', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
     });
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6">
+      <div className="min-h-screen p-6" style={{ background: 'var(--bg-main)' }}>
         <div className="max-w-4xl mx-auto">
           <div className="animate-pulse space-y-8">
-            <div className="h-12 bg-gray-200 rounded-lg w-1/3 mx-auto"></div>
+            <div className="h-12 rounded-lg w-1/3 mx-auto" style={{ backgroundColor: 'var(--bg-hover)' }}></div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
+                <div key={i} className="h-32 rounded-2xl" style={{ backgroundColor: 'var(--bg-hover)' }}></div>
               ))}
             </div>
-            <div className="h-96 bg-gray-200 rounded-2xl"></div>
+            <div className="h-96 rounded-2xl" style={{ backgroundColor: 'var(--bg-hover)' }}></div>
           </div>
         </div>
       </div>
@@ -80,13 +80,13 @@ const Statistics1 = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50 p-6 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 text-center max-w-md">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <XCircle className="w-8 h-8 text-red-500" />
+      <div className="min-h-screen p-6 flex items-center justify-center" style={{ background: 'var(--priority-high-bg)' }}>
+        <div className="rounded-2xl shadow-xl p-8 text-center max-w-md" style={{ backgroundColor: 'var(--bg-card)' }}>
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'var(--priority-high-bg)' }}>
+            <XCircle style={{ color: 'var(--priority-high)', width: 32, height: 32 }} />
           </div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Failed to Load Statistics</h3>
-          <p className="text-gray-600">{error}</p>
+          <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Failed to Load Statistics</h3>
+          <p style={{ color: 'var(--text-muted)' }}>{error}</p>
         </div>
       </div>
     );
@@ -94,13 +94,13 @@ const Statistics1 = () => {
 
   if (!weeklyData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 text-center max-w-md">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BarChart3 className="w-8 h-8 text-gray-400" />
+      <div className="min-h-screen p-6 flex items-center justify-center" style={{ background: 'var(--bg-main)' }}>
+        <div className="rounded-2xl shadow-xl p-8 text-center max-w-md" style={{ backgroundColor: 'var(--bg-card)' }}>
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'var(--bg-hover)' }}>
+            <BarChart3 style={{ color: 'var(--text-muted)', width: 32, height: 32 }} />
           </div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No Data Available</h3>
-          <p className="text-gray-600">Start tracking your habits to see statistics here!</p>
+          <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>No Data Available</h3>
+          <p style={{ color: 'var(--text-muted)' }}>Start tracking your habits to see statistics here!</p>
         </div>
       </div>
     );
@@ -112,15 +112,15 @@ const Statistics1 = () => {
   const completionRate = totalExpected ? ((totalCompleted / totalExpected) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6">
+    <div className="min-h-screen p-6" style={{ background: 'var(--bg-main)' }}>
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-2xl">
-              <BarChart3 className="w-8 h-8 text-white" />
+            <div className="p-3 rounded-2xl" style={{ background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}>
+              <BarChart3 style={{ color: 'var(--btn-text)', width: 32, height: 32 }} />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--accent-primary)' }}>
               Statistics Overview
             </h1>
           </div>
@@ -128,82 +128,83 @@ const Statistics1 = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+          <div className="rounded-2xl p-6 shadow-lg border transition-all duration-300"
+            style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--card-border)' }}>
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
-                <CheckCircle className="w-6 h-6 text-white" />
+              <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, var(--btn-gradient-success-from), var(--btn-gradient-success-to))' }}>
+                <CheckCircle style={{ color: 'var(--btn-text)', width: 24, height: 24 }} />
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-800">{totalCompleted}</div>
-                <div className="text-sm text-gray-600 font-medium">Total Completed</div>
+                <div className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{totalCompleted}</div>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Total Completed</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+          <div className="rounded-2xl p-6 shadow-lg border transition-all duration-300"
+            style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--card-border)' }}>
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl">
-                <Target className="w-6 h-6 text-white" />
+              <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, var(--btn-gradient-primary-from), var(--btn-gradient-primary-to))' }}>
+                <Target style={{ color: 'var(--btn-text)', width: 24, height: 24 }} />
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-800">{totalExpected}</div>
-                <div className="text-sm text-gray-600 font-medium">Total Expected</div>
+                <div className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{totalExpected}</div>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Total Expected</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
+          <div className="rounded-2xl p-6 shadow-lg border transition-all duration-300"
+            style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--card-border)' }}>
             <div className="flex items-center gap-4">
-              <div className={`p-3 bg-gradient-to-r ${completionRate >= 75 ? 'from-green-500 to-emerald-600' : completionRate >= 50 ? 'from-amber-500 to-orange-600' : 'from-red-500 to-pink-600'} rounded-xl`}>
-                <Award className="w-6 h-6 text-white" />
+              <div className="p-3 rounded-xl"
+                style={{
+                  background: completionRate >= 75
+                    ? 'linear-gradient(135deg, var(--btn-gradient-success-from), var(--btn-gradient-success-to))'
+                    : completionRate >= 50
+                      ? 'linear-gradient(135deg, var(--btn-gradient-primary-from), var(--btn-gradient-primary-to))'
+                      : 'linear-gradient(135deg, var(--btn-gradient-danger-from), var(--btn-gradient-danger-to))'
+                }}>
+                <Award style={{ color: 'var(--btn-text)', width: 24, height: 24 }} />
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-800">{completionRate.toFixed(1)}%</div>
-                <div className="text-sm text-gray-600 font-medium">Success Rate</div>
+                <div className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{completionRate.toFixed(1)}%</div>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Success Rate</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bar Chart */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/30 p-6">
+        <div className="rounded-2xl shadow-lg border p-6"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--card-border)' }}>
           <div className="flex items-center gap-2 mb-6">
-            <BarChart3 className="w-6 h-6 text-blue-600" />
-            <h3 className="text-xl font-bold text-gray-800">Daily Progress</h3>
+            <BarChart3 style={{ color: 'var(--accent-primary)', width: 24, height: 24 }} />
+            <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Daily Progress</h3>
           </div>
           <ResponsiveContainer width="100%" height={400}>
             <BarChart data={chartData.map(day => ({
               ...day,
               date: formatDate(day.date)
             }))}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis 
-                dataKey="date" 
-                tick={{ fontSize: 12 }}
-                stroke="#6b7280"
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--card-border)" />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 12, fill: 'var(--text-muted)' }}
+                stroke="var(--text-muted)"
               />
-              <YAxis stroke="#6b7280" />
-              <Tooltip 
+              <YAxis stroke="var(--text-muted)" />
+              <Tooltip
                 contentStyle={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  border: 'none',
+                  backgroundColor: 'var(--bg-card)',
+                  border: `1px solid var(--card-border)`,
                   borderRadius: '12px',
-                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)'
+                  color: 'var(--text-primary)'
                 }}
               />
               <Legend />
-              <Bar 
-                dataKey="totalCompleted" 
-                name="Completed" 
-                fill="#10b981"
-                radius={[4, 4, 0, 0]}
-              />
-              <Bar 
-                dataKey="totalMissed" 
-                name="Missed" 
-                fill="#ef4444"
-                radius={[4, 4, 0, 0]}
-              />
+              <Bar dataKey="totalCompleted" name="Completed" fill="var(--priority-low)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="totalMissed" name="Missed" fill="var(--priority-high)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
