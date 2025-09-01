@@ -5,7 +5,7 @@ import { useAuth } from '../../Components/Auth/AuthContext';
 import { API_BASE_URL, API_Path } from '../../Utils/apiPath';
 import { User, Mail, Shield, Trash2, Check, AlertTriangle } from 'lucide-react';
 import { toast } from 'react-toastify';
-import SettingsCardsList from '../../Components/Settings/SettingsCardsList'; // New import
+import SettingsCardsList from '../../Components/Settings/SettingsCardsList';
 
 const SettingsPage = () => {
   const { user, token, updateUser } = useAuth();
@@ -100,18 +100,20 @@ const SettingsPage = () => {
       title: 'Profile Information',
       description: 'Update your personal information and account details.',
       icon: User,
-      bgColor: 'bg-indigo-50',
-      border: 'border-indigo-100',
-      iconColor: 'text-indigo-600',
-      textColor: 'text-indigo-800',
+      bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+      border: 'border-indigo-200 dark:border-indigo-700/30',
+      iconColor: 'text-indigo-600 dark:text-indigo-400',
+      textColor: 'text-indigo-800 dark:text-indigo-200',
       content: (
         <>
           {message && (
             <div
-              className={`p-4 rounded-lg flex items-center gap-3 mb-4 ${
+              className={`p-4 rounded-lg flex items-center gap-3 mb-4 transition-opacity duration-300 ${
+                isFadingOut ? 'opacity-0' : 'opacity-100'
+              } ${
                 message.type === 'success'
-                  ? 'bg-[var(--success-bg)] border-[var(--success-border)] text-[var(--success-text)]'
-                  : 'bg-[var(--error-bg)] border-[var(--error-border)] text-[var(--error-text)]'
+                  ? 'bg-green-50 border border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-700/30 dark:text-green-200'
+                  : 'bg-red-50 border border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-700/30 dark:text-red-200'
               }`}
             >
               {message.type === 'success' ? <Check className="w-5 h-5" /> : <AlertTriangle className="w-5 h-5" />}
@@ -122,7 +124,7 @@ const SettingsPage = () => {
           <form onSubmit={handleUpdate} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold mb-2 text-[var(--text-primary)]">
+                <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
                   <User className="w-4 h-4 inline mr-2" />
                   Username
                 </label>
@@ -135,7 +137,7 @@ const SettingsPage = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-2 text-[var(--text-primary)]">
+                <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
                   <Mail className="w-4 h-4 inline mr-2" />
                   Email
                 </label>
@@ -153,7 +155,7 @@ const SettingsPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-3 bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] disabled:bg-opacity-50 text-[var(--btn-text)] font-semibold rounded-lg transition-colors flex items-center gap-2"
+                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shadow-lg"
               >
                 {loading ? (
                   <>
@@ -177,68 +179,73 @@ const SettingsPage = () => {
       title: 'Security & Privacy',
       description: 'Manage your password and privacy settings.',
       icon: Shield,
-      bgColor: 'bg-green-50',
-      border: 'border-green-100',
-      iconColor: 'text-green-600',
-      textColor: 'text-green-800',
+      bgColor: 'bg-green-50 dark:bg-green-900/20',
+      border: 'border-green-200 dark:border-green-700/30',
+      iconColor: 'text-green-600 dark:text-green-400',
+      textColor: 'text-green-800 dark:text-green-200',
       content: (
-        <form
-          onSubmit={handlePasswordUpdate}
-          className="space-y-6 bg-[var(--settings-card-bg)] border border-[var(--settings-border)] rounded-lg p-6"
-        >
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-[var(--text-primary)]">Current Password</label>
-            <InputField
-              type="password"
-              value={currentPassword}
-              onChange={setCurrentPassword}
-              placeholder="Enter current password"
-              required
-            />
-          </div>
+        <div className="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-6 backdrop-blur-sm">
+          <form onSubmit={handlePasswordUpdate} className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                Current Password
+              </label>
+              <InputField
+                type="password"
+                value={currentPassword}
+                onChange={setCurrentPassword}
+                placeholder="Enter current password"
+                required
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-[var(--text-primary)]">New Password</label>
-            <InputField
-              type="password"
-              value={newPassword}
-              onChange={setNewPassword}
-              placeholder="Enter new password"
-              required
-            />
-          </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                New Password
+              </label>
+              <InputField
+                type="password"
+                value={newPassword}
+                onChange={setNewPassword}
+                placeholder="Enter new password"
+                required
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-[var(--text-primary)]">Confirm New Password</label>
-            <InputField
-              type="password"
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              placeholder="Confirm new password"
-              required
-            />
-          </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                Confirm New Password
+              </label>
+              <InputField
+                type="password"
+                value={confirmPassword}
+                onChange={setConfirmPassword}
+                placeholder="Confirm new password"
+                required
+              />
+            </div>
 
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={passwordLoading}
-              className="px-6 py-3 bg-[var(--btn-bg)] hover:bg-[var(--btn-bg-hover)] disabled:bg-opacity-50 text-[var(--btn-text)] font-semibold rounded-lg transition-colors flex items-center gap-2"
-            >
-              {passwordLoading ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Updating...
-                </>
-              ) : (
-                <>
-                  <Check className="w-4 h-4" />
-                  Update Password
-                </>
-              )}
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                disabled={passwordLoading}
+                className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 shadow-lg"
+              >
+                {passwordLoading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Updating...
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Update Password
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
       ),
     },
     {
@@ -246,10 +253,10 @@ const SettingsPage = () => {
       title: 'Delete Account OR Logout',
       description: "You can sign out or choose to permanently delete your account and all associated data. Only deletion will remove your data.",
       icon: Trash2,
-      bgColor: 'bg-red-50',
-      border: 'border-red-100',
-      iconColor: 'text-red-600',
-      textColor: 'text-red-800',
+      bgColor: 'bg-red-50 dark:bg-red-900/20',
+      border: 'border-red-200 dark:border-red-700/30',
+      iconColor: 'text-red-600 dark:text-red-400',
+      textColor: 'text-red-800 dark:text-red-200',
       content: (
         <div>
           <DeleteAccount />
@@ -259,9 +266,26 @@ const SettingsPage = () => {
   ];
 
   return (
-    <main className="min-h-screen w-full px-4 sm:px-8 lg:px-20 py-10 bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-300 pt-28">
-      <section className="w-full max-w-5xl mx-auto bg-[var(--bg-card)] rounded-2xl shadow-lg p-6 sm:p-10">
-        <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-10">Settings</h1>
+    <main 
+      className="min-h-screen w-full px-4 sm:px-8 lg:px-20 py-10 transition-colors duration-300 pt-28"
+      style={{ 
+        background: 'var(--bg-main)',
+        color: 'var(--text-primary)'
+      }}
+    >
+      <section 
+        className="w-full max-w-5xl mx-auto rounded-2xl shadow-lg p-6 sm:p-10 backdrop-blur-sm border"
+        style={{ 
+          backgroundColor: 'var(--bg-card)',
+          borderColor: 'var(--card-border)'
+        }}
+      >
+        <h1 
+          className="text-3xl font-bold mb-10"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          Settings
+        </h1>
 
         <SettingsCardsList cards={cards} isFadingOut={isFadingOut} />
       </section>

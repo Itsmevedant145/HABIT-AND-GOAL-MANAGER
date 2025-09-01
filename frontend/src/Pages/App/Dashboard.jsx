@@ -14,39 +14,40 @@ const Dashboard = () => {
   const [showAll, setShowAll] = useState(false);
 
   const components = [
-    { 
-      Component: ProgressChart, 
-      title: "Progress Analytics", 
-      id: "progress",
-      icon: BarChart3,
-      gradient: "from-blue-500 to-purple-600",
-      description: "Track your overall performance"
-    },
-    { 
-      Component: Statistics1, 
-      title: "Performance Insights", 
-      id: "stats1",
-      icon: TrendingUp,
-      gradient: "from-emerald-500 to-teal-600",
-      description: "Deep dive into your metrics"
-    },
-    { 
-      Component: Statistics2, 
-      title: "Activity Overview", 
-      id: "stats2",
-      icon: Zap,
-      gradient: "from-amber-500 to-orange-600",
-      description: "Your recent activity summary"
-    },
-    { 
-      Component: StreakCounter, 
-      title: "Streak Tracker", 
-      id: "streak",
-      icon: Target,
-      gradient: "from-red-500 to-pink-600",
-      description: "Maintain your momentum"
-    }
-  ];
+  { 
+    Component: ProgressChart, 
+    title: "Progress Analytics", 
+    id: "progress",
+    icon: BarChart3,
+    gradient: "from-indigo-500 to-purple-600", // Cool & calm
+    description: "Track your overall performance"
+  },
+  { 
+    Component: Statistics1, 
+    title: "Performance Insights", 
+    id: "stats1",
+    icon: TrendingUp,
+    gradient: "from-emerald-500 to-teal-500", // Fresh & balanced
+    description: "Deep dive into your metrics"
+  },
+  { 
+    Component: Statistics2, 
+    title: "Activity Overview", 
+    id: "stats2",
+    icon: Zap,
+    gradient: "from-cyan-500 to-blue-600", // ✨ Replaces orange, feels modern
+    description: "Your recent activity summary"
+  },
+  { 
+    Component: StreakCounter, 
+    title: "Streak Tracker", 
+    id: "streak",
+    icon: Target,
+    gradient: "from-rose-500 to-pink-500", // Slightly softened from harsh reds
+    description: "Maintain your momentum"
+  }
+];
+
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
@@ -101,9 +102,8 @@ const Dashboard = () => {
                 <Icon className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent dark:from-white dark:to-gray-300">
-                  {title}
-                </h3>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{title}</h3>
+
                 <p className="text-sm opacity-70" style={{ color: 'var(--text-muted)' }}>
                   {description}
                 </p>
@@ -270,24 +270,19 @@ const Dashboard = () => {
               />
             ))}
           </div>
-
-          {/* Footer Summary */}
-          <div className="relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border border-gray-200/50 dark:border-gray-700/50">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-500/5 to-transparent rounded-full -translate-y-32 translate-x-32" />
-            <div className="relative z-10 text-center max-w-2xl mx-auto">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl">
-                <BarChart3 className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent dark:from-white dark:to-gray-300">
-                Your Analytics Command Center
-              </h3>
-              <p className="text-lg leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                Each card above contains detailed insights about your performance. 
-                <span className="font-semibold"> Expand individual sections</span> to explore specific metrics, 
-                or use <span className="font-semibold">"Expand All"</span> to see everything at once.
-              </p>
-            </div>
-          </div>
+ <div className="rounded-xl p-6 border shadow-sm max-w-full mx-auto">
+      <div className="w-18 h-16 mb-4 rounded-lg bg-gray-300 flex items-center justify-center">
+        <BarChart3 className="w-8 h-8 text-gray-700" />
+      </div>
+      <h3 className="text-xl font-bold mb-2">
+        Your Analytics Command Center
+      </h3>
+      <p className="text-gray-600">
+        Each card above contains detailed insights about your performance.{' '}
+        <strong>Expand individual sections</strong> to explore specific metrics, or use{' '}
+        <strong>"Expand All"</strong> to see everything at once.
+      </p>
+    </div>
         </>
       )}
     </div>
