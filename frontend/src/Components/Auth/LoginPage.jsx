@@ -4,6 +4,7 @@ import InputField from '../UI/InputField';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from './AuthContext';
+ import { FiZap } from "react-icons/fi"; // Make sure to import at the top
 
 import apiClient from '../../Utils/apiClient';
 import { API_Path } from '../../Utils/apiPath';
@@ -133,6 +134,40 @@ const LoginPage = () => {
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Login</h2>
               <p className="text-gray-600">Enter your credentials to continue</p>
             </div>
+           
+
+
+<button
+  type="button"
+  onClick={async () => {
+    setIsLoading(true);
+    try {
+      const response = await apiClient.post(API_Path.AUTH.LOGIN, {
+        email: "testuser@example.com",
+        password: "zxcvbnml",
+      });
+
+      const { token, user } = response.data;
+      if (token && user) {
+        const success = login(token, user);
+        if (success) {
+          navigate("/dashboard");
+        } else {
+          toast.error("Login context failed to update.");
+        }
+      }
+    } catch (error) {
+      toast.error("Demo login failed.");
+    } finally {
+      setIsLoading(false);
+    }
+  }}
+  className="w-full flex items-center justify-center gap-2 py-3 mb-2 text-white bg-green-600 hover:bg-green-700 font-semibold rounded-xl shadow transition-all duration-200"
+>
+  <FiZap className="text-xl" />
+  Try Demo Version
+</button>
+
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               <InputField
@@ -195,6 +230,8 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+    
+
     </div>
   );
 };
